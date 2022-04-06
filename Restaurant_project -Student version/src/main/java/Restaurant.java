@@ -1,6 +1,7 @@
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Restaurant {
@@ -41,7 +42,8 @@ public class Restaurant {
         //return null;
         //DELETE ABOVE RETURN STATEMENT AND WRITE CODE HERE
         //List list = new ArrayList<>();
-        return menu;
+        //return menu;
+        return Collections.unmodifiableList(this.menu);
     }
 
     private Item findItemByName(String itemName){
@@ -75,5 +77,18 @@ public class Restaurant {
 
     public String getName() {
         return name;
+    }
+
+    public int displayTotalOrder(List<String> itemsInOrder){
+        int totalOrder =0;
+        for (String itemName : itemsInOrder){
+            Item item = this.findItemByName(itemName);
+            totalOrder = totalOrder + item.getPrice();
+        }
+        return totalOrder;
+    }
+
+    public void displayOrderCost(List<String> itemsInOrder){
+        System.out.println("Your order will cost Rs." + displayTotalOrder(itemsInOrder));
     }
 }

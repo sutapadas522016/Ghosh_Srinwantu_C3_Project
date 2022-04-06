@@ -5,15 +5,20 @@ import java.util.List;
 public class RestaurantService {
     private static List<Restaurant> restaurants = new ArrayList<>();
 
-    public Restaurant findRestaurantByName(String restaurantName){
+    public Restaurant findRestaurantByName(String restaurantName) throws restaurantNotFoundException{
         //return null;
         //DELETE ABOVE STATEMENT AND WRITE CODE HERE
-        for (Restaurant restaurant : restaurants)
-        {
-            if (restaurant.equals(getRestaurants()))
-                return restaurant;
-        }
-        return null;
+        Restaurant restaurantList = null;
+
+        restaurantList = restaurants
+                .stream()
+                .filter(restaurant -> restaurant.getName().toLowerCase().equals(restaurantName.toLowerCase()))
+                .findFirst()
+                .orElse(null);
+        if (restaurantList == null)
+            throw new restaurantNotFoundException("Error: Restaurant could not be found");
+
+        return restaurantList;
     }
 
     public Restaurant addRestaurant(String name, String location, LocalTime openingTime, LocalTime closingTime) {
