@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 
 class RestaurantTest {
     Restaurant restaurant;
@@ -55,7 +53,6 @@ class RestaurantTest {
         LocalTime currentTime = LocalTime.parse("11:30:00");
         Mockito.when(restaurant.getCurrentTime()).thenReturn(currentTime);
 
-        //restaurant = new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
         restaurant.isRestaurantOpen();
     }
 
@@ -66,7 +63,6 @@ class RestaurantTest {
         LocalTime currentTime = LocalTime.parse("23:30:00");
         Mockito.when(restaurant.getCurrentTime()).thenReturn(currentTime);
 
-        //restaurant = new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
         restaurant.isRestaurantOpen();
     }
 
@@ -76,9 +72,6 @@ class RestaurantTest {
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>MENU<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     @Test
     public void adding_item_to_menu_should_increase_menu_size_by_1(){
-        //restaurant =new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
-        //restaurant.addToMenu("Sweet corn soup",119);
-        //restaurant.addToMenu("Vegetable lasagne", 269);
 
         int initialMenuSize = restaurant.getMenu().size();
         restaurant.addToMenu("Sizzling brownie",319);
@@ -86,9 +79,6 @@ class RestaurantTest {
     }
     @Test
     public void removing_item_from_menu_should_decrease_menu_size_by_1() throws itemNotFoundException {
-        //restaurant =new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
-        //restaurant.addToMenu("Sweet corn soup",119);
-        //restaurant.addToMenu("Vegetable lasagne", 269);
 
         int initialMenuSize = restaurant.getMenu().size();
         restaurant.removeFromMenu("Vegetable lasagne");
@@ -96,11 +86,8 @@ class RestaurantTest {
     }
     @Test
     public void removing_item_that_does_not_exist_should_throw_exception() {
-        //restaurant =new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
-        //restaurant.addToMenu("Sweet corn soup",119);
-        //restaurant.addToMenu("Vegetable lasagne", 269);
 
-        assertThrows(itemNotFoundException.class,
+         assertThrows(itemNotFoundException.class,
                 ()->restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -112,6 +99,20 @@ class RestaurantTest {
         int expectedTotalOrderValue = 388;
 
         assertEquals(expectedTotalOrderValue,actualTotalOrderValue);
+    }
+
+    @Test
+    public void display_details_of_the_current_restaurant(){
+
+        String expectedDetails =
+                "Restaurant:Amelie's cafe\n"
+                        +"Location:Chennai\n"
+                        +"Opening time:10:30\n"
+                        +"Closing time:22:00\n"
+                        +"Menu:"+"\n" + "[Sweet corn soup:119\n, Vegetable lasagne:269\n]\n";
+
+    restaurant.displayDetails();
+    assertEquals(expectedDetails,outPutStream.toString());
     }
 
     @Test
